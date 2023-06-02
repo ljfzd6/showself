@@ -22,11 +22,13 @@ export default {
   },
   methods: {
     mainpage () { 
-      this.$router.push('/home/hometext')}
-  },
-  login () { 
+      this.$router.push('/home/hometext')
+    },
+    login () { 
     this.$router.push('/login')
   }
+  }
+
   }
 
 </script>
@@ -34,7 +36,7 @@ export default {
 <style lang="less" scoped>
 *{
 margin: 0;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-family: fantasy'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 header {

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import MainPage from '@/components/main-page.vue'
 import HomeText from '@/views/hometext-page.vue'
 import LoginAndRegister from '@/components/loginregister-page.vue'
+import WorkMain from '@/components/home-page.vue'
 
 //导入插件
 Vue.use(VueRouter)
@@ -18,7 +19,8 @@ const router = new VueRouter({
     // 重定向首页
     { path: '/', redirect: '/home' },
         // 配置路由
-    {path:'/login',component:LoginAndRegister},
+    { path: '/login', component: LoginAndRegister },
+    { path: '/workplace',component: WorkMain},
    {
       path: '/home',
       component: MainPage,

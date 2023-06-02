@@ -26,7 +26,7 @@
                   <input type="verficode" placeholder="验证码" name="verficode" required />
                   <img src="../assets/11.jpg">
                 </div>
-                <button type="submit" class="btn submit">登录</button>
+                <button type="submit" class="btn submit" @click="login()">登录</button>
               </form>
             </article>
           </div>
@@ -39,27 +39,27 @@
               <form action="#" method="post">
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="text" placeholder="用户名" name="name" required />
                 </div>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="password" placeholder="密码" name="password" required />
                 </div>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="password" placeholder="确认密码" name="password" required />
                 </div>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
                   <input type="password" placeholder="真实姓名" name="password" required />
                 </div>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="password" placeholder="邮箱" name="password" required />
                 </div>
                 <div class="input">
-                  <span class="fa fa-user-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="password" placeholder="电话号码" name="password" required />
                 </div>
                 <button type="submit" class="btn submit">注册</button>
@@ -74,7 +74,7 @@
                 <h3 class="legend last">重置密码</h3>
                 <p class="para-style">输入你的邮箱并根据邮箱中的提示重置密码</p>
                 <div class="input">
-                  <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                  <span  aria-hidden="true"></span>
                   <input type="email" placeholder="Email" name="email" required />
                 </div>
                 <button type="submit" class="btn submit last-btn">重置</button>
@@ -95,7 +95,9 @@ export default {
     }
   },
   methods: {
-
+    login () { 
+      this.$router.push("/workplace")
+    }
   }
 }
 
