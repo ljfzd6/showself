@@ -28,7 +28,7 @@ export default {
     this.$router.push('/login')
     },
     showtemplate() {
-      this.$router.push('/home/showtemplate')
+      
     }
   }
 

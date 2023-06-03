@@ -4,7 +4,7 @@
         <p>流星个人定制博客</p>
         <nav>
             <a @click="mainpage()">首页</a>
-            <a @click="showtemplate()">选择模板</a>
+            <a>博客展示</a>
             <a>使用说明</a>
             <a @click="login()">登录</a>
         </nav>
@@ -26,10 +26,7 @@ export default {
     },
     login () { 
     this.$router.push('/login')
-    },
-    showtemplate() {
-      this.$router.push('/home/showtemplate')
-    }
+  }
   }
 
   }
