@@ -315,7 +315,7 @@ body {
 }
 
 .main-bg {
-    background: url(../assets/background.jpg) no-repeat center;
+    background: url(../assets/b4.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
