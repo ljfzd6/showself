@@ -10,49 +10,56 @@
         <i class="el-icon-user"></i>
         用户名
       </template>
-      {{null}}
+      {{user.username}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-mobile-phone"></i>
         密码
       </template>
-      {{null}}
+      {{this.user.password}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-location-outline"></i>
         真实姓名
       </template>
-      {{null}}
+      {{this.user.name}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-phone"></i>
         邮箱
       </template>
-      {{null}}
+      {{this.user.email}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-s-custom"></i>
         性别
       </template>
-      {{null}}
+      {{this.user.sex}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-s-custom"></i>
         电话
       </template>
-      {{null}}
+      {{this.user.phone}}
     </el-descriptions-item>
         <el-descriptions-item>
       <template slot="label">
         <i class="el-icon-s-custom"></i>
         创建时间
       </template>
-      {{null}}
+      {{this.user.createtime}}
+    </el-descriptions-item>
+    <el-descriptions-item>
+      <template slot="label">
+        <i class="el-icon-s-custom"></i>
+        等级
+      </template>
+      {{this.user.grade}}
     </el-descriptions-item>
     <!-- 修改密码弹窗 -->
   </el-descriptions>
@@ -86,9 +93,15 @@
 </template>
 
 <script>
+import { SelectUserById } from '@/api/userApI.js'
 export default {
   methods: {
-
+ // 获取表单信息
+ async getinformation () {
+      const { data: res } = await SelectUserById(this.$store.state.id)
+      console.log(res.data)
+      this.user = res.data
+    },
   },
   data () {
     return {
@@ -103,6 +116,7 @@ export default {
   },
   // 获取展示数据
   created () {
+    this.getinformation()
   }
 }
 </script>

@@ -12,7 +12,7 @@
   >
   <el-menu-item index="1">流星个人博客</el-menu-item>
   <el-submenu index="2">
-    <template slot="title">{{  }}</template>
+    <template slot="title">{{ $store.state.username }}</template>
     <el-menu-item index="2-1" @click="userinformation()">个人信息</el-menu-item>
     <el-menu-item index="2-3" @click="null">注销登录</el-menu-item>
   </el-submenu>

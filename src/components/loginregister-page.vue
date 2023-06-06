@@ -11,22 +11,22 @@
             <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle"
                 aria-hidden="true"></span>登录</label>
             <article>
-              <form action="#" method="post">
+              <form  method="get" >
                 <h3 class="legend">在这登录</h3>
                 <div class="input">
                   <span class="fa fa-user-o" aria-hidden="true"></span>
-                  <input type="text" placeholder="用户名" name="email" required />
+                  <input type="text" placeholder="邮箱" v-model="user.email" required />
                 </div>
                 <div class="input">
                   <span class="fa fa-key" aria-hidden="true"></span>
-                  <input type="password" placeholder="密码" name="password" required />
+                  <input type="password" placeholder="密码" v-model="user.password"  required />
                 </div>
                 <div class="input">
                   <span class="fa fa-key" aria-hidden="true"></span>
                   <input type="verficode" placeholder="验证码" name="verficode" required />
                   <img src="../assets/11.jpg">
                 </div>
-                <button type="submit" class="btn submit" @click="login()">登录</button>
+                <input type="submit" class="btn submit" @click.prevent="login()" value="登录">
               </form>
             </article>
           </div>
@@ -84,19 +84,64 @@
         </div>
       </div>
     </div>
+    <el-dialog
+  title="提示"
+  :visible.sync="dialogVisible"
+  width="30%">
+  <span>{{ msg }}</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="ok()">确 定</el-button>
+  </span>
+</el-dialog>
   </div>
 </template>
 
 <script>
-
+import {Login} from '@/api/userApI.js'
 export default {
   data () {
     return {
+      type: 'common',
+      user: {
+        id: '',
+        username: '',
+        password: '',
+        name: '',
+        email: '',
+        phone: '',
+        sex: '',
+        grade: '',
+      },
+      msg: '',
+      dialogVisible: false
     }
   },
   methods: {
-    login () { 
-      this.$router.push("/workplace")
+   async login () { 
+      const { data: res } = await Login(this.user.email, this.user.password)
+      console.log(res.code+res.msg+res.data)
+      if (res.code == 200) {
+        this.type = "login"
+        this.user.id = res.data.id;
+        this.user.username = res.data.username;
+        this.msg = res.msg;
+        this.$store.dispatch('updateuser', this.user)
+        this.dialogVisible = true;
+      } else {
+        this.msg = res.msg;
+        this.type = "common"
+        this.dialogVisible = true;
+      }
+    },
+    ok () { 
+      if (this.type == 'login') { 
+        this.dialogVisible = false;
+        this.$router.push('/workplace/userinformation')
+      }
+      else{
+        this.dialogVisible = false;
+        this.$router.push('/login')
+      }
     }
   }
 }
