@@ -10,11 +10,11 @@
   text-color="#fff"
   active-text-color="#ffd04b"
   >
-  <el-menu-item index="1">流星个人博客</el-menu-item>
+  <el-menu-item index="1">流星个人博客工作台</el-menu-item>
   <el-submenu index="2">
-    <template slot="title">{{ $store.state.username }}</template>
+    <template slot="title">你好！！！{{ $store.state.username }}</template>
     <el-menu-item index="2-1" @click="userinformation()">个人信息</el-menu-item>
-    <el-menu-item index="2-3" @click="null">注销登录</el-menu-item>
+    <el-menu-item index="2-3" @click="logoff()">注销登录</el-menu-item>
   </el-submenu>
 </el-menu>
   </el-header>
@@ -36,7 +36,7 @@
         <el-menu-item-group>
           <el-menu-item index="1-1" @click="userinformation()">个人信息</el-menu-item>
           <el-menu-item index="1-2" @click="homepage()">回到首页</el-menu-item>
-          <el-menu-item index="1-3" @click="null">注销</el-menu-item>
+          <el-menu-item index="1-3" @click="logoff()">注销</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
@@ -85,6 +85,10 @@ export default {
       this.$router.push('/workplace/userinformation')
     },
     homepage() {
+      this.$router.push('/home/hometext')
+    },
+    logoff () { 
+      this.$store.dispatch('updateuser', '')
       this.$router.push('/home/hometext')
     }
   }

@@ -6,7 +6,7 @@
             <a @click="mainpage()">首页</a>
             <a @click="showtemplate()">选择模板</a>
             <a>使用说明</a>
-            <a @click="login()">登录</a>
+            <a @click="login()">{{ $store.state.id!=''?$store.state.username:'登录' }}</a>
         </nav>
     </div>
     <router-view></router-view>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      persondata: '登录'
     }
   },
   methods: {

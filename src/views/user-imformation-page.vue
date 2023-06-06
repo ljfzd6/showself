@@ -52,7 +52,7 @@
         <i class="el-icon-s-custom"></i>
         创建时间
       </template>
-      {{this.user.createtime}}
+      {{this.user.createtime|formatDate('yyyy-MM-dd HH:mm:ss')}}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
@@ -101,6 +101,11 @@ export default {
       const { data: res } = await SelectUserById(this.$store.state.id)
       console.log(res.data)
       this.user = res.data
+      if (this.user.sex == 1) {
+        this.user.sex = '男'
+      } else { 
+        this.user.sex = '女'
+      }
     },
   },
   data () {
@@ -117,6 +122,19 @@ export default {
   // 获取展示数据
   created () {
     this.getinformation()
+  },
+  filters: {
+    formatDate: function (value, args) {
+      var dt = new Date(value);
+        // yyyy-MM-dd HH:mm:ss
+        let year = dt.getFullYear();
+        let month = (dt.getMonth() + 1).toString().padStart(2, '0');
+        let date = dt.getDate().toString().padStart(2, '0');
+        let hour = dt.getHours().toString().padStart(2, '0');
+        let minute = dt.getMinutes().toString().padStart(2, '0');
+        let second = dt.getSeconds().toString().padStart(2, '0');
+        return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+    }
   }
 }
 </script>
