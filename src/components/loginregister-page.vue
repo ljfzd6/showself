@@ -23,8 +23,8 @@
                 </div>
                 <div class="input">
                   <span class="fa fa-key" aria-hidden="true"></span>
-                  <input type="verficode" placeholder="验证码" name="verficode" required />
-                  <img src="../assets/11.jpg">
+                  <input type="text" placeholder="验证码" v-model="verifycode" required />
+                  <img :src="coderequst" v-on:click = "refreshcode()">
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="login()" value="登录">
               </form>
@@ -40,27 +40,32 @@
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
                   <span  aria-hidden="true"></span>
-                  <input type="text" placeholder="用户名" name="name" required />
+                  <input type="text" placeholder="用户名" v-model="user.username" required />
                 </div>
                 <div class="input">
                   <span  aria-hidden="true"></span>
-                  <input type="password" placeholder="密码" name="password" required />
+                  <input type="password" placeholder="密码" v-model="user.password" required />
                 </div>
                 <div class="input">
                   <span  aria-hidden="true"></span>
-                  <input type="password" placeholder="确认密码" name="password" required />
+                  <input type="password" placeholder="确认密码" v-model="user.name" required />
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="password" placeholder="真实姓名" name="password" required />
+                  <input type="password" placeholder="真实姓名" v-model="user.name" required />
                 </div>
                 <div class="input">
                   <span  aria-hidden="true"></span>
-                  <input type="password" placeholder="邮箱" name="password" required />
+                  <input type="password" placeholder="邮箱" v-model="user.email" required />
                 </div>
                 <div class="input">
                   <span  aria-hidden="true"></span>
-                  <input type="password" placeholder="电话号码" name="password" required />
+                  <input type="password" placeholder="电话号码" v-model="user.phone" required />
+                </div>
+                <div class="input" >
+                  <span  aria-hidden="true" ></span>
+                  <input type="radio" name="radios" value="1" v-model="param"><label>one</label>
+                  <input type="radio" name="radios" value="1" v-model="param"><label>one</label>
                 </div>
                 <button type="submit" class="btn submit">注册</button>
               </form>
@@ -112,13 +117,15 @@ export default {
         sex: '',
         grade: '',
       },
+      verifycode: '',
+      coderequst:'api/user/verifycode',
       msg: '',
       dialogVisible: false
     }
   },
   methods: {
    async login () { 
-      const { data: res } = await Login(this.user.email, this.user.password)
+      const { data: res } = await Login(this.user.email, this.user.password,this.verifycode)
       console.log(res.code+res.msg+res.data)
       if (res.code == 200) {
         this.type = "login"
@@ -142,8 +149,11 @@ export default {
         this.dialogVisible = false;
         this.$router.push('/login')
       }
+    },
+    refreshcode () { 
+      this.coderequst = 'api/user/verifycode?' + new Date().getTime();
     }
-  }
+  },
 }
 
 </script>
@@ -501,8 +511,8 @@ p.para-style-2 a {
 .input {
     margin-bottom: 1em;
     padding: 13px 15px;
-    border: 1px solid #eee;
-    background: #eee;
+    border: 1px solid blueviolet;
+    background: white;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

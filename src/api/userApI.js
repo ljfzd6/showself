@@ -1,12 +1,12 @@
 import request from '@/utils/request.js'
 //登录
-export const Login = function (email, password) {
+export const Login = function (email, password,verifycode) {
   // 请求路径
   return request.get('/user/login', {
     params: {
       email: email,
-      password: password
-
+      password: password,
+      verifyCode: verifycode
     }
   })
 }
@@ -16,6 +16,12 @@ export const SelectUserById = function (id) {
     params: {
       id: id
     }
+  })
+}
+// 获取验证码
+export const GetVerifCode = function () {
+  return request.get('/user/verifycode', {
+    responseType: 'blob' 
   })
 }
 // // 修改用户数据

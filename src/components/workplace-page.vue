@@ -87,8 +87,8 @@ export default {
     homepage() {
       this.$router.push('/home/hometext')
     },
-    logoff () { 
-      this.$store.dispatch('updateuser', '')
+    logoff () {
+      this.$store.dispatch('updateuser', {id: '', username: ''})
       this.$router.push('/home/hometext')
     }
   }

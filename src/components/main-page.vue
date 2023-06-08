@@ -6,7 +6,7 @@
             <a @click="mainpage()">首页</a>
             <a @click="showtemplate()">选择模板</a>
             <a>使用说明</a>
-            <a @click="login()">{{ $store.state.id!=''?$store.state.username:'登录' }}</a>
+            <a @click="login()">{{ $store.state.id!=''?'进入'+$store.state.username+'的工作台':'登录' }}</a>
         </nav>
     </div>
     <router-view></router-view>
@@ -14,18 +14,27 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   data () {
     return {
-    }
+    } 
   },
+  computed: {
+      getText(){
+      return (this.$store.state.id)
+    }
+   },
   methods: {
     mainpage () { 
       this.$router.push('/home/hometext')
     },
     login () { 
-    this.$router.push('/login')
+      const id = this.getText;
+      if (id != '') {
+        this.$router.push('/workplace')
+      } else {
+        this.$router.push('/login')
+       }
     },
     showtemplate() {
       this.$router.push('/home/showtemplate')
