@@ -79,5 +79,6 @@ export const AddUser = function (user) {
       phone: user.phone,
       email: user.email,
       sex: user.sex
+    
   })
 }

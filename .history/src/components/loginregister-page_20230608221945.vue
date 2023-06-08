@@ -131,18 +131,13 @@ export default {
         this.dialogVisible = true
       }
     },
-     async register() {
-        const { data: res } = await AddUser(this.user)
+     register() {
         console.log(this.user)
-        console.log(res.code + res.msg + res.data)
-        this.user.username='';
-        this.user.password='';
-        this.user.name='';
-        this.user.phone='';
-        this.user.email='';
-        this.user.sex='';
-        this.msg = res.msg
-        this.dialogVisible = true
+        // const { data: res } = await AddUser(this.user)
+        // console.log(this.user)
+        // console.log(res.code + res.msg + res.data)
+        // this.msg = res.msg
+        // this.dialogVisible = true
     },
     ok() {
       if (this.type == 'login') {

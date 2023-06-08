@@ -34,7 +34,7 @@
 
             <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>注册</label>
             <article>
-              <form  method="post">
+              <form action="#" method="post">
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
                   <span aria-hidden="true"></span>
@@ -46,22 +46,30 @@
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="text" placeholder="真实姓名" v-model="user.name" required />
+                  <input type="password" placeholder="确认密码" v-model="user.name" required />
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="email" placeholder="邮箱" v-model="user.email" required />
+                  <input type="password" placeholder="真实姓名" v-model="user.name" required />
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="phone" placeholder="电话号码" v-model="user.phone" required />
+                  <input type="password" placeholder="邮箱" v-model="user.email" required />
                 </div>
-                <div class="input1">
-                    <span aria-hidden="true"></span>
-                  <el-radio v-model="user.sex" label="1" size="mini">男</el-radio>
-                <el-radio v-model="user.sex" label="0" size="mini">女</el-radio>
+                <div class="input">
+                  <span aria-hidden="true"></span>
+                  <input type="password" placeholder="电话号码" v-model="user.phone" required />
                 </div>
-                <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
+                <div class="input" style="height: 5px;">
+                  <input type="radio" name="radios" id="radio1" value="1" v-model="param">
+                  <label for="radio1">Option 1</label>
+                </div>
+                <div class="input">
+                  <input type="radio" name="radios" id="radio2" value="2" v-model="param">
+                  <label for="radio2">Option 2</label>
+                </div>
+
+                <button type="submit" class="btn submit">注册</button>
               </form>
             </article>
           </div>
@@ -93,7 +101,7 @@
 </template>
 
 <script>
-import { Login,AddUser } from '@/api/userApI.js'
+import { Login } from '@/api/userApI.js'
 export default {
   data() {
     return {
@@ -131,19 +139,6 @@ export default {
         this.dialogVisible = true
       }
     },
-     async register() {
-        const { data: res } = await AddUser(this.user)
-        console.log(this.user)
-        console.log(res.code + res.msg + res.data)
-        this.user.username='';
-        this.user.password='';
-        this.user.name='';
-        this.user.phone='';
-        this.user.email='';
-        this.user.sex='';
-        this.msg = res.msg
-        this.dialogVisible = true
-    },
     ok() {
       if (this.type == 'login') {
         this.dialogVisible = false
@@ -155,8 +150,7 @@ export default {
     },
     refreshcode() {
       this.coderequst = 'api/user/verifycode?' + new Date().getTime()
-    },
-    
+    }
   }
 }
 </script>
@@ -522,16 +516,7 @@ p.para-style-2 a {
   -ms-flex-align: center;
   align-items: center;
 }
-.input1 {
-  border: 1px solid blueviolet;
-  background: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
+
 .input span {
   font-size: 15px;
   color: #464646;
@@ -850,5 +835,6 @@ a.bottom-text-w3ls {
     min-width: 270px;
   }
 }
+
 /* //responsive */
 </style>

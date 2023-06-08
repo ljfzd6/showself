@@ -72,12 +72,13 @@ export const GetVerifCode = function () {
 // }
 // 添加用户
 export const AddUser = function (user) {
-  return request.post('/user/register', {
+  return request.get('/user/register', {
+    params: {
       username: user.username,
       password: user.password,
       name: user.name,
       phone: user.phone,
-      email: user.email,
-      sex: user.sex
+      email: user.email
+    }
   })
 }

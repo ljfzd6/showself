@@ -34,7 +34,7 @@
 
             <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>注册</label>
             <article>
-              <form  method="post">
+              <form action="#" method="post">
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
                   <span aria-hidden="true"></span>
@@ -46,22 +46,34 @@
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="text" placeholder="真实姓名" v-model="user.name" required />
+                  <input type="password" placeholder="真实姓名" v-model="user.name" required />
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="email" placeholder="邮箱" v-model="user.email" required />
+                  <input type="password" placeholder="邮箱" v-model="user.email" required />
                 </div>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="phone" placeholder="电话号码" v-model="user.phone" required />
+                  <input type="password" placeholder="电话号码" v-model="user.phone" required />
                 </div>
-                <div class="input1">
+                <!-- <div class="input1">
                     <span aria-hidden="true"></span>
-                  <el-radio v-model="user.sex" label="1" size="mini">男</el-radio>
-                <el-radio v-model="user.sex" label="0" size="mini">女</el-radio>
+                  <el-radio v-model="user.sex" label="1" size="mini" >备选项</el-radio>
+                <el-radio v-model="user.sex" label="2" size="mini">备选项</el-radio>
+                </div> -->
+                <div class="container">
+                    <div class="segmeted-control">
+                        <input type="radio" name="tab1" id="tab-1" value="1" checked/>
+                        <label for="tab-1" class="segmented-control_1">
+                            <p>tab1</p>
+                        </label>
+                        <input type="radio" name="tab2" id="tab-1" value="0" checked/>
+                        <label for="tab-2" class="segmented-control_2">
+                            <p>tab2</p>
+                        </label>
+                    </div>
                 </div>
-                <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
+                <button type="submit" class="btn submit">注册</button>
               </form>
             </article>
           </div>
@@ -93,7 +105,7 @@
 </template>
 
 <script>
-import { Login,AddUser } from '@/api/userApI.js'
+import { Login } from '@/api/userApI.js'
 export default {
   data() {
     return {
@@ -131,19 +143,6 @@ export default {
         this.dialogVisible = true
       }
     },
-     async register() {
-        const { data: res } = await AddUser(this.user)
-        console.log(this.user)
-        console.log(res.code + res.msg + res.data)
-        this.user.username='';
-        this.user.password='';
-        this.user.name='';
-        this.user.phone='';
-        this.user.email='';
-        this.user.sex='';
-        this.msg = res.msg
-        this.dialogVisible = true
-    },
     ok() {
       if (this.type == 'login') {
         this.dialogVisible = false
@@ -155,8 +154,7 @@ export default {
     },
     refreshcode() {
       this.coderequst = 'api/user/verifycode?' + new Date().getTime()
-    },
-    
+    }
   }
 }
 </script>
@@ -849,6 +847,38 @@ a.bottom-text-w3ls {
   .vertical-tab .section-w3ls article {
     min-width: 270px;
   }
+}
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: var(--greyLight-1);
+}
+.segmented-control {
+    width: 20.4rem;
+    height: 4rem;
+    box-shadow: .3rem .3rem .6rem var
+    (--greyLight-2),
+    -.2rem -.2rem .5rem var(--white);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    input {
+        display: none;
+    }
+    &_1,&_2 {
+        width: 6.8rem;
+        height: 3.6rem;
+        font-size: 1.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--greyDark);
+        &:hover {
+            color: var(--primary);
+        }
+    }
 }
 /* //responsive */
 </style>

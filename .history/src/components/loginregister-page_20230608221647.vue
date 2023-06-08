@@ -34,7 +34,7 @@
 
             <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>注册</label>
             <article>
-              <form  method="post">
+              <form action="#" method="post">
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
                   <span aria-hidden="true"></span>
@@ -61,7 +61,7 @@
                   <el-radio v-model="user.sex" label="1" size="mini">男</el-radio>
                 <el-radio v-model="user.sex" label="0" size="mini">女</el-radio>
                 </div>
-                <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
+                <button type="submit" class="btn submit" @click="register()">注册</button>
               </form>
             </article>
           </div>
@@ -131,18 +131,13 @@ export default {
         this.dialogVisible = true
       }
     },
-     async register() {
-        const { data: res } = await AddUser(this.user)
+    async register() {
         console.log(this.user)
-        console.log(res.code + res.msg + res.data)
-        this.user.username='';
-        this.user.password='';
-        this.user.name='';
-        this.user.phone='';
-        this.user.email='';
-        this.user.sex='';
-        this.msg = res.msg
-        this.dialogVisible = true
+        // const { data: res } = await AddUser(this.user)
+        // console.log(this.user)
+        // console.log(res.code + res.msg + res.data)
+        // this.msg = res.msg
+        // this.dialogVisible = true
     },
     ok() {
       if (this.type == 'login') {

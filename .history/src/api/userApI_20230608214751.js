@@ -71,13 +71,16 @@ export const GetVerifCode = function () {
 //   })
 // }
 // 添加用户
-export const AddUser = function (user) {
-  return request.post('/user/register', {
-      username: user.username,
-      password: user.password,
-      name: user.name,
-      phone: user.phone,
-      email: user.email,
-      sex: user.sex
+export const AddUser = function (UserForm) {
+  return request.get('/user/register', {
+    params: {
+      username: UserForm.username,
+      password: UserForm.password,
+      age: UserForm.age,
+      name: UserForm.name,
+      phone: UserForm.phone,
+      address: UserForm.address,
+      email: UserForm.email
+    }
   })
 }
