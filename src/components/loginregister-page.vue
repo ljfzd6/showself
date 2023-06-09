@@ -8,7 +8,8 @@
         <div class="vertical-tab">
           <div id="section1" class="section-w3ls">
             <input type="radio" name="sections" id="option1" checked>
-            <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle" aria-hidden="true"></span>登录</label>
+            <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle"
+                aria-hidden="true"></span>登录</label>
             <article>
               <form method="get">
                 <h3 class="legend">在这登录</h3>
@@ -32,9 +33,10 @@
           <div id="section2" class="section-w3ls">
             <input type="radio" name="sections" id="option2">
 
-            <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>注册</label>
+            <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square"
+                aria-hidden="true"></span>注册</label>
             <article>
-              <form  method="post">
+              <form method="post">
                 <h3 class="legend">在这注册</h3>
                 <div class="input">
                   <span aria-hidden="true"></span>
@@ -56,10 +58,10 @@
                   <span aria-hidden="true"></span>
                   <input type="phone" placeholder="电话号码" v-model="user.phone" required />
                 </div>
-                <div class="input1">
-                    <span aria-hidden="true"></span>
-                  <el-radio v-model="user.sex" label="1" size="mini">男</el-radio>
-                <el-radio v-model="user.sex" label="0" size="mini">女</el-radio>
+                <div class="input-box input">
+                  <input type="text"  placeholder="请输入验证码" v-model="code">
+                  <button class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
+                    : '发送验证码' }}</button>
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
               </form>
@@ -69,14 +71,14 @@
             <input type="radio" name="sections" id="option3">
             <label for="option3" class="icon-left-w3pvt"><span class="fa fa-lock" aria-hidden="true"></span>忘记密码?</label>
             <article>
-              <form action="#" method="post">
+              <form method="get">
                 <h3 class="legend last">重置密码</h3>
                 <p class="para-style">输入你的邮箱并根据邮箱中的提示重置密码</p>
                 <div class="input">
                   <span aria-hidden="true"></span>
-                  <input type="email" placeholder="Email" name="email" required />
+                  <input type="email" placeholder="Email" name="email" v-model="user.email" required />
                 </div>
-                <button type="submit" class="btn submit last-btn">重置</button>
+                <button type="submit" class="btn submit last-btn" @click.prevent="resetpassword()">重置</button>
               </form>
             </article>
           </div>
@@ -93,9 +95,9 @@
 </template>
 
 <script>
-import { Login,AddUser } from '@/api/userApI.js'
+import { Login, AddUser } from '@/api/userApI.js'
 export default {
-  data() {
+  data () {
     return {
       type: 'common',
       user: {
@@ -108,6 +110,8 @@ export default {
         sex: '',
         grade: ''
       },
+      code: '',
+      countdown: 0,
       verifycode: '',
       coderequst: 'api/user/verifycode',
       msg: '',
@@ -115,7 +119,7 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async login () {
       const { data: res } = await Login(this.user.email, this.user.password, this.verifycode)
       console.log(res.code + res.msg + res.data)
       if (res.code == 200) {
@@ -131,34 +135,49 @@ export default {
         this.dialogVisible = true
       }
     },
-     async register() {
-        const { data: res } = await AddUser(this.user)
-        console.log(this.user)
-        console.log(res.code + res.msg + res.data)
-        this.user.username='';
-        this.user.password='';
-        this.user.name='';
-        this.user.phone='';
-        this.user.email='';
-        this.user.sex='';
-        this.msg = res.msg
-        this.dialogVisible = true
+    async register () {
+      const { data: res } = await AddUser(this.user)
+      console.log(this.user)
+      console.log(res.code + res.msg + res.data)
+      this.user.username = '';
+      this.user.password = '';
+      this.user.name = '';
+      this.user.phone = '';
+      this.user.email = '';
+      this.msg = res.msg
+      this.dialogVisible = true
     },
-    ok() {
-      if (this.type == 'login') {
-        this.dialogVisible = false
-        this.$router.push('/workplace/userinformation')
-      } else {
-        this.dialogVisible = false
-        this.$router.push('/login')
-      }
+    sendCode () {
+      // 发送验证码的逻辑
+      // ...
+      // 假设发送成功后开始倒计时60秒
+      this.countdown = 60;
+      const timer = setInterval(() => {
+        if (this.countdown > 0) {
+          this.countdown--;
+        } else {
+          clearInterval(timer);
+        }
+      }, 1000);
     },
-    refreshcode() {
-      this.coderequst = 'api/user/verifycode?' + new Date().getTime()
-    },
-    
+  },
+  ok () {
+    if (this.type == 'login') {
+      this.dialogVisible = false
+      this.$router.push('/workplace/userinformation')
+    } else {
+      this.dialogVisible = false
+      this.$router.push('/login')
+    }
+  },
+  refreshcode () {
+    this.coderequst = 'api/user/verifycode?' + new Date().getTime()
+  },
+  resetpassword () {
+    this.$router.push('/forgetpassword')
   }
 }
+
 </script>
 
 <style lang="less" scoped>
@@ -255,6 +274,42 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
+}
+
+.input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.btn {
+  height: 100%;
+  margin-left: 50px;
+  border: none;
+  outline: none;
+  background-color: #409eff;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 article,
@@ -460,13 +515,13 @@ h1 {
     z-index: 1;
 } */
 
-.vertical-tab input[name='sections']:checked + label {
+.vertical-tab input[name='sections']:checked+label {
   background: #00ad45;
   border-right: 1px solid #000;
   color: #fff;
 }
 
-.vertical-tab input[name='sections']:checked ~ article {
+.vertical-tab input[name='sections']:checked~article {
   display: block;
 }
 
@@ -522,6 +577,7 @@ p.para-style-2 a {
   -ms-flex-align: center;
   align-items: center;
 }
+
 .input1 {
   border: 1px solid blueviolet;
   background: white;
@@ -532,6 +588,7 @@ p.para-style-2 a {
   -ms-flex-align: center;
   align-items: center;
 }
+
 .input span {
   font-size: 15px;
   color: #464646;
@@ -809,7 +866,7 @@ a.bottom-text-w3ls {
     border-top: 1px solid #dcdcdc;
   }
 
-  .vertical-tab input[name='sections']:checked + label {
+  .vertical-tab input[name='sections']:checked+label {
     border-right: none;
     border-bottom: 1px solid #000;
     border-top: none;
@@ -850,5 +907,5 @@ a.bottom-text-w3ls {
     min-width: 270px;
   }
 }
-/* //responsive */
-</style>
+
+/* //responsive */</style>

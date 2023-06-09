@@ -6,6 +6,7 @@ import LoginAndRegister from '@/components/loginregister-page.vue'
 import WorkMain from '@/components/workplace-page.vue'
 import ShowTemplate from '@/views/showtemplate-page.vue'
 import UserImformation from '@/views/user-imformation-page.vue'
+import ForgetPassword from '@/components/forgetpassword-page.vue'
 
 //导入插件
 Vue.use(VueRouter)
@@ -22,6 +23,7 @@ const router = new VueRouter({
     { path: '/', redirect: '/home' },
     // 配置路由
     { path: '/login', component: LoginAndRegister },
+    { path: '/forgetpassword', component: ForgetPassword },
     { path: '/workplace',
       component: WorkMain,
       redirect: '/workplace/userinformation',

@@ -18,6 +18,15 @@ export const SelectUserById = function (id) {
     }
   })
 }
+// 通过邮箱返回用户数据请求
+export const SelectUserByEmail = function (email) {
+  return request.get('/user/getuserbyemail', {
+    params: {
+      email: email,
+      operator: 'admin'
+    }
+  })
+}
 // 获取验证码
 export const GetVerifCode = function () {
   return request.get('/user/verifycode', {
@@ -77,7 +86,6 @@ export const AddUser = function (user) {
       password: user.password,
       name: user.name,
       phone: user.phone,
-      email: user.email,
-      sex: user.sex
+      email: user.email
   })
 }
