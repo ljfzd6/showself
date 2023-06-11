@@ -316,7 +316,7 @@ video {
 }
 .clickable-link {
   color:violet;
-  padding-left: 60%;
+  padding-left: 65%;
   text-decoration: none;
   cursor: pointer;
 }

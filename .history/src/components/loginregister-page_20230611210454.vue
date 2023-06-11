@@ -2,7 +2,7 @@
   <div>
     <div class="main-bg">
       <h1>注册登录</h1>
-      <a href="#" class="clickable-link" @click="goBack()">---->点击此处返回首页</a>
+      <a href="#" class="clickable-link" @click="goBack()">点击此处</a>
       <!-- //title -->
       <div class="sub-main-w3" style="padding-left: 200px;margin-top: 20px;">
         <!-- vertical tabs -->
@@ -315,9 +315,9 @@ video {
   font-size: 16px;
 }
 .clickable-link {
-  color:violet;
-  padding-left: 60%;
-  text-decoration: none;
+  color: blue;
+  padding-left: 80%;
+  text-decoration: underline;
   cursor: pointer;
 }
 

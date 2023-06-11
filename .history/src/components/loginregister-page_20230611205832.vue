@@ -2,7 +2,7 @@
   <div>
     <div class="main-bg">
       <h1>注册登录</h1>
-      <a href="#" class="clickable-link" @click="goBack()">---->点击此处返回首页</a>
+      <a  @click="goBack()" style="margin-left: 10px;">返回</a>
       <!-- //title -->
       <div class="sub-main-w3" style="padding-left: 200px;margin-top: 20px;">
         <!-- vertical tabs -->
@@ -137,7 +137,7 @@ export default {
       }
     },
     goBack(){
-      this.$router.push('/home/hometext')
+      
     },
     //注册
     async register() {
@@ -314,16 +314,7 @@ video {
   outline: none;
   font-size: 16px;
 }
-.clickable-link {
-  color:violet;
-  padding-left: 60%;
-  text-decoration: none;
-  cursor: pointer;
-}
 
-.clickable-link:hover {
-  color: red;
-}
 .btn {
   height: 100%;
   margin-left: 50px;
