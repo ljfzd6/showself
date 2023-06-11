@@ -58,7 +58,7 @@
                 </div>
                 <div class="input-box input">
                   <input type="text" placeholder="请输入验证码" v-model="code">
-                  <button type="button" class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
+                  <button class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
                     : '发送验证码' }}</button>
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
@@ -137,7 +137,7 @@ export default {
     },
     //注册
     async register() {
-      const { data: res } = await AddUser(this.user,this.code,this.usercode)
+      const { data: res } = await AddUser(this.user,this.code)
       console.log(res.code + res.msg + res.data)
       this.user.username = ''
       this.user.password = ''
@@ -145,20 +145,16 @@ export default {
       this.user.phone = ''
       this.user.email = ''
       this.code= ''
-      this.type= 'common'
       this.msg = res.msg
       this.dialogVisible = true
     },
     //发送邮件
-     async sendCode() {
-      if (this.user.email =='') {
-        this.msg = '请先填写邮箱'
-        this.type = 'nothing'
-        this.dialogVisible = true
-      }else {
+    async sendCode() {
       // 发送验证码的逻辑
       const { data: res } = await SendVerifEmail(this.user.email)
         this.usercode= res.data;
+        this.msg = res.msg
+        this.dialogVisible = true
       // 假设发送成功后开始倒计时60秒
       this.countdown = 60
       const timer = setInterval(() => {
@@ -168,20 +164,12 @@ export default {
           clearInterval(timer)
         }
       }, 1000)
-      this.type = 'nothing';
-        this.msg = res.msg;
-        this.dialogVisible = true;
-      }
-      
     },
     ok() {
       if (this.type == 'login') {
         this.dialogVisible = false
         this.$router.push('/workplace/userinformation')
-      }else if(this.type == 'nothing')
-      {
-        this.dialogVisible = false
-      }else {
+      } else {
         this.dialogVisible = false
         this.$router.push('/login')
       }

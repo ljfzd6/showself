@@ -44,13 +44,11 @@ export const SendVerifEmail = function (email) {
 // 添加用户
 export const AddUser = function (user,code,usercode) {
   return request.post('/user/register', {
-      user: {
-        username: user.username,
-        password: user.password,
-        name: user.name,
-        phone: user.phone,
-        email: user.email,
-      },
+      username: user.username,
+      password: user.password,
+      name: user.name,
+      phone: user.phone,
+      email: user.email,
       code: code,
       usercode:usercode
   })

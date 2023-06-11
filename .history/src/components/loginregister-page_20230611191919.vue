@@ -58,7 +58,7 @@
                 </div>
                 <div class="input-box input">
                   <input type="text" placeholder="请输入验证码" v-model="code">
-                  <button type="button" class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
+                  <button class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
                     : '发送验证码' }}</button>
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
@@ -150,7 +150,7 @@ export default {
       this.dialogVisible = true
     },
     //发送邮件
-     async sendCode() {
+    async sendCode() {
       if (this.user.email =='') {
         this.msg = '请先填写邮箱'
         this.type = 'nothing'
@@ -159,6 +159,9 @@ export default {
       // 发送验证码的逻辑
       const { data: res } = await SendVerifEmail(this.user.email)
         this.usercode= res.data;
+        this.type = 'nothing'
+        this.msg = res.msg
+        this.dialogVisible = true
       // 假设发送成功后开始倒计时60秒
       this.countdown = 60
       const timer = setInterval(() => {
@@ -168,13 +171,10 @@ export default {
           clearInterval(timer)
         }
       }, 1000)
-      this.type = 'nothing';
-        this.msg = res.msg;
-        this.dialogVisible = true;
       }
-      
     },
     ok() {
+      console('当前的类型是'+this.type)
       if (this.type == 'login') {
         this.dialogVisible = false
         this.$router.push('/workplace/userinformation')

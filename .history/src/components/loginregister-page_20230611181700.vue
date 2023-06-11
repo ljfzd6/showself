@@ -8,7 +8,8 @@
         <div class="vertical-tab">
           <div id="section1" class="section-w3ls">
             <input type="radio" name="sections" id="option1" checked>
-            <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle" aria-hidden="true"></span>登录</label>
+            <label for="option1" class="icon-left-w3pvt"><span class="fa fa-user-circle"
+                aria-hidden="true"></span>登录</label>
             <article>
               <form method="get">
                 <h3 class="legend">在这登录</h3>
@@ -32,7 +33,8 @@
           <div id="section2" class="section-w3ls">
             <input type="radio" name="sections" id="option2">
 
-            <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square" aria-hidden="true"></span>注册</label>
+            <label for="option2" class="icon-left-w3pvt"><span class="fa fa-pencil-square"
+                aria-hidden="true"></span>注册</label>
             <article>
               <form method="post">
                 <h3 class="legend">在这注册</h3>
@@ -57,8 +59,8 @@
                   <input type="phone" placeholder="电话号码" v-model="user.phone" required />
                 </div>
                 <div class="input-box input">
-                  <input type="text" placeholder="请输入验证码" v-model="code">
-                  <button type="button" class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
+                  <input type="text"  placeholder="请输入验证码" v-model="code">
+                  <button class="btn" :disabled="countdown > 0" @click="sendCode">{{ countdown > 0 ? `${countdown}s后重新发送`
                     : '发送验证码' }}</button>
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="register()" value="注册">
@@ -93,9 +95,9 @@
 </template>
 
 <script>
-import { Login, AddUser,SendVerifEmail } from '@/api/userApI.js'
+import { Login, AddUser } from '@/api/userApI.js'
 export default {
-  data() {
+  data () {
     return {
       type: 'common',
       user: {
@@ -108,7 +110,6 @@ export default {
         sex: '',
         grade: ''
       },
-      usercode: '',
       code: '',
       countdown: 0,
       verifycode: '',
@@ -118,8 +119,7 @@ export default {
     }
   },
   methods: {
-    //登录
-    async login() {
+    async login () {
       const { data: res } = await Login(this.user.email, this.user.password, this.verifycode)
       console.log(res.code + res.msg + res.data)
       if (res.code == 200) {
@@ -135,65 +135,50 @@ export default {
         this.dialogVisible = true
       }
     },
-    //注册
-    async register() {
-      const { data: res } = await AddUser(this.user,this.code,this.usercode)
+    async register () {
+      const { data: res } = await AddUser(this.user)
+      console.log(this.user)
       console.log(res.code + res.msg + res.data)
-      this.user.username = ''
-      this.user.password = ''
-      this.user.name = ''
-      this.user.phone = ''
-      this.user.email = ''
-      this.code= ''
-      this.type= 'common'
+      this.user.username = '';
+      this.user.password = '';
+      this.user.name = '';
+      this.user.phone = '';
+      this.user.email = '';
       this.msg = res.msg
       this.dialogVisible = true
     },
-    //发送邮件
-     async sendCode() {
-      if (this.user.email =='') {
-        this.msg = '请先填写邮箱'
-        this.type = 'nothing'
-        this.dialogVisible = true
-      }else {
+    sendCode () {
       // 发送验证码的逻辑
-      const { data: res } = await SendVerifEmail(this.user.email)
-        this.usercode= res.data;
+      // ...
       // 假设发送成功后开始倒计时60秒
-      this.countdown = 60
+      this.countdown = 60;
       const timer = setInterval(() => {
         if (this.countdown > 0) {
-          this.countdown--
+          this.countdown--;
         } else {
-          clearInterval(timer)
+          clearInterval(timer);
         }
-      }, 1000)
-      this.type = 'nothing';
-        this.msg = res.msg;
-        this.dialogVisible = true;
-      }
-      
+      }, 1000);
     },
-    ok() {
-      if (this.type == 'login') {
-        this.dialogVisible = false
-        this.$router.push('/workplace/userinformation')
-      }else if(this.type == 'nothing')
-      {
-        this.dialogVisible = false
-      }else {
-        this.dialogVisible = false
-        this.$router.push('/login')
-      }
-    },
-    refreshcode() {
-      this.coderequst = 'api/user/verifycode?' + new Date().getTime()
-    },
-    resetpassword() {
-      this.$router.push('/forgetpassword')
+    ok () {
+    if (this.type == 'login') {
+      this.dialogVisible = false
+      this.$router.push('/workplace/userinformation')
+    } else {
+      this.dialogVisible = false
+      this.$router.push('/login')
     }
+  },
+  refreshcode () {
+    this.coderequst = 'api/user/verifycode?' + new Date().getTime()
+  },
+  resetpassword () {
+    this.$router.push('/forgetpassword')
   }
+  },
+ 
 }
+
 </script>
 
 <style lang="less" scoped>
@@ -531,13 +516,13 @@ h1 {
     z-index: 1;
 } */
 
-.vertical-tab input[name='sections']:checked + label {
+.vertical-tab input[name='sections']:checked+label {
   background: #00ad45;
   border-right: 1px solid #000;
   color: #fff;
 }
 
-.vertical-tab input[name='sections']:checked ~ article {
+.vertical-tab input[name='sections']:checked~article {
   display: block;
 }
 
@@ -882,7 +867,7 @@ a.bottom-text-w3ls {
     border-top: 1px solid #dcdcdc;
   }
 
-  .vertical-tab input[name='sections']:checked + label {
+  .vertical-tab input[name='sections']:checked+label {
     border-right: none;
     border-bottom: 1px solid #000;
     border-top: none;
@@ -924,5 +909,4 @@ a.bottom-text-w3ls {
   }
 }
 
-/* //responsive */
-</style>
+/* //responsive */</style>

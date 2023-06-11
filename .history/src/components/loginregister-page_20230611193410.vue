@@ -149,6 +149,10 @@ export default {
       this.msg = res.msg
       this.dialogVisible = true
     },
+    async sendemail()
+    {
+
+    },
     //发送邮件
      async sendCode() {
       if (this.user.email =='') {
@@ -159,6 +163,9 @@ export default {
       // 发送验证码的逻辑
       const { data: res } = await SendVerifEmail(this.user.email)
         this.usercode= res.data;
+        this.type = 'nothing'
+        this.msg = res.msg
+        this.dialogVisible = true
       // 假设发送成功后开始倒计时60秒
       this.countdown = 60
       const timer = setInterval(() => {
@@ -168,13 +175,10 @@ export default {
           clearInterval(timer)
         }
       }, 1000)
-      this.type = 'nothing';
-        this.msg = res.msg;
-        this.dialogVisible = true;
       }
-      
     },
     ok() {
+      console('当前的类型是'+this.type)
       if (this.type == 'login') {
         this.dialogVisible = false
         this.$router.push('/workplace/userinformation')

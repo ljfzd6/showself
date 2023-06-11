@@ -168,13 +168,14 @@ export default {
           clearInterval(timer)
         }
       }, 1000)
-      this.type = 'nothing';
-        this.msg = res.msg;
-        this.dialogVisible = true;
+      this.type = 'nothing'
+        this.msg = res.msg
+        this.dialogVisible = true
       }
       
     },
     ok() {
+      console('当前的类型是'+this.type)
       if (this.type == 'login') {
         this.dialogVisible = false
         this.$router.push('/workplace/userinformation')

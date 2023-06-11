@@ -33,29 +33,6 @@ export const GetVerifCode = function () {
     responseType: 'blob' 
   })
 }
-// 发送验证码
-export const SendVerifEmail = function (email) {
-  return request.get('/email/sendregisteremail', {
-    params: {
-      email: email
-    }
-  })
-}
-// 添加用户
-export const AddUser = function (user,code,usercode) {
-  return request.post('/user/register', {
-      user: {
-        username: user.username,
-        password: user.password,
-        name: user.name,
-        phone: user.phone,
-        email: user.email,
-      },
-      code: code,
-      usercode:usercode
-  })
-}
-
 // // 修改用户数据
 // export const UpdateUserInformation = function (user) {
 //   console.log('准备发送的' + user.id + user.username + user.password + user.age + user.name + user.phone + user.address)
@@ -72,7 +49,14 @@ export const AddUser = function (user,code,usercode) {
 //     }
 //   })
 // }
-
+// 发送验证码
+export const SendVerifEmail = function (email) {
+  return request.get('/email/sendregisteremail', {
+    params: {
+      email: email
+    }
+  })
+}
 // // 修改密码
 // export const UpdatePassword = function (username, verifcode, password) {
 //   return request.get('/user/updatepassword', {
@@ -95,3 +79,13 @@ export const AddUser = function (user,code,usercode) {
 //     }
 //   })
 // }
+// 添加用户
+export const AddUser = function (user) {
+  return request.post('/user/register', {
+      username: user.username,
+      password: user.password,
+      name: user.name,
+      phone: user.phone,
+      email: user.email
+  })
+}
