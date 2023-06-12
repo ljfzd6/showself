@@ -11,32 +11,65 @@
                 <label for="confirm-password">确认新密码：</label>
                 <input type="password" id="confirm-password" v-model="upassword" required>
             </div>
-            <button type="submit" class="btn">重置密码</button>
+            <button type="submit" class="btn" @click.prevent="reset()">重置密码</button>
         </form>
     </div>
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+      <span>{{ msg }}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="ok()">确 定</el-button>
+      </span>
+    </el-dialog>
   </body>
 </template>
 
 <script>
+import { UpdatePassword}  from '@/api/userApI.js'
 export default {
   data() {
     return {
-      password: '',
       upassword: '',
-      id: ''
+      password: '',
+      userid: '',
+      msg: '',
+      dialogVisible: false,
+      type: "sucess"
     }
   },
   methods: {
-    sendVerificationCode() {
-      // 发送验证码的逻辑
-      this.isSending = true;
-      // 发送成功后将isSending设置为false
+    async reset () { 
+      if (this.password == this.upassword) {
+        console.log("this.password, this.userid"+this.password+ this.userid)
+        const { data: res } = await UpdatePassword( this.userid,this.password);
+      if (res.code == 200) {
+        this.msg = res.msg;
+        this.dialogVisible = true
+        this.type = 'sucess';
+      } else { 
+        this.msg = res.msg;
+        this.dialogVisible = true
+        this.type='common'
+      }
+      } else { 
+        this.msg = "输入是两遍代码不一样";
+        this.dialogVisible = true
+        this.type='common'
+      }
+      
+
     },
-    submitForm() {
-      // 提交表单的逻辑
-      this.isSubmitting = true;
-      // 提交成功后将isSubmitting设置为false
+    ok () { 
+      if (this.type == 'sucess') {
+        this.dialogVisible = false;
+        this.$router.push('/login')
+      } else { 
+        this.dialogVisible = false;
+      }
     }
+  },
+    // 读取数据展示页面传来的值
+    created () {
+    this.userid = this.$route.params.userid
   }
 }
 </script>

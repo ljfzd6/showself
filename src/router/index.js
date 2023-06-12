@@ -7,6 +7,7 @@ import WorkMain from '@/components/workplace-page.vue'
 import ShowTemplate from '@/views/showtemplate-page.vue'
 import UserImformation from '@/views/user-imformation-page.vue'
 import ForgetPassword from '@/components/forgetpassword-page.vue'
+import UpdateUser from '@/views/user-update-page.vue'
 
 //导入插件
 Vue.use(VueRouter)
@@ -23,12 +24,13 @@ const router = new VueRouter({
     { path: '/', redirect: '/home' },
     // 配置路由
     { path: '/login', component: LoginAndRegister },
-    { path: '/forgetpassword', component: ForgetPassword },
+    { path: '/forgetpassword', component: ForgetPassword, name: 'forgetpassword'},
     { path: '/workplace',
       component: WorkMain,
       redirect: '/workplace/userinformation',
       children: [
-        {path: 'userinformation', component: UserImformation}
+        { path: 'userinformation', component: UserImformation },
+        { path: 'updateuser',component: UpdateUser,name: "updateuser"}
       ] },
     {
       path: '/home',
@@ -36,15 +38,7 @@ const router = new VueRouter({
       redirect: '/home/hometext',
       children: [
         { path: 'hometext', component: HomeText },
-        { path: 'showtemplate', component: ShowTemplate },
-        // { path: 'updateuser', component: UpdateUserInformation, name: 'updateuser' },
-        // { path: 'alluser', component: AllUserInformation },
-        // { path: 'useradd', component: UserAdd },
-        // { path: 'userimageadd', component: UserImageAdd },
-        // { path: 'qrcodecheck', component: ExtraQrcodeCheck },
-        // { path: 'videoshow', component: videoShow, children: [{ path: 'video/:num', component: Video, name: 'video' }] },
-        // { path: 'comment', component: Comment },
-        // { path: 'updateusericon', component: UpdateUserIcon }
+        { path: 'showtemplate', component: ShowTemplate }
       ],
     },
   ],

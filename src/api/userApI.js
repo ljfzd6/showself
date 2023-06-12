@@ -55,7 +55,16 @@ export const AddUser = function (user,code,usercode) {
       usercode:usercode
   })
 }
-
+// 修改密码
+export const UpdatePassword = function (id,password) {
+  return request.put('/user/updatepassword', {
+    user: {
+      id: id,
+      password: password
+    },
+    operator: id
+  })
+}
 // // 修改用户数据
 // export const UpdateUserInformation = function (user) {
 //   console.log('准备发送的' + user.id + user.username + user.password + user.age + user.name + user.phone + user.address)
@@ -73,16 +82,7 @@ export const AddUser = function (user,code,usercode) {
 //   })
 // }
 
-// // 修改密码
-// export const UpdatePassword = function (username, verifcode, password) {
-//   return request.get('/user/updatepassword', {
-//     params: {
-//       username: username,
-//       password: password,
-//       verifcode: verifcode
-//     }
-//   })
-// }
+
 // // 获取全部用户
 // export const GetAllUser = function () {
 //   return request.get('/user/getalluser')

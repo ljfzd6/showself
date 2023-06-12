@@ -23,7 +23,7 @@
                 </div>
                 <div class="input">
                   <span class="fa fa-key" aria-hidden="true"></span>
-                  <input type="text" placeholder="验证码" v-model="verifycode" required />
+                  <input type="text" placeholder="验证码(点击图片更换下一张)" v-model="verifycode" required />
                   <img :src="coderequst" v-on:click="refreshcode()">
                 </div>
                 <input type="submit" class="btn submit" @click.prevent="login()" value="登录">
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { Login, AddUser,SendVerifEmail } from '@/api/userApI.js'
+import { Login, AddUser,SendVerifEmail,SelectUserByEmail } from '@/api/userApI.js'
 export default {
   data() {
     return {
@@ -193,8 +193,17 @@ export default {
     refreshcode() {
       this.coderequst = 'api/user/verifycode?' + new Date().getTime()
     },
-    resetpassword() {
-      this.$router.push('/forgetpassword')
+    async resetpassword () {
+      const { data: res } = await SelectUserByEmail(this.user.email)
+      console.log(res.data.id)
+      if (res.code == 200) {
+        this.$router.push({ name: 'forgetpassword', params: { userid: res.data.id } })
+      } else { 
+        this.msg = res.msg;
+        this.type = 'nothing';
+        this.dialogVisible = true;
+      }
+
     }
   }
 }
