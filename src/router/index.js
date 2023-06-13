@@ -8,6 +8,8 @@ import ShowTemplate from '@/views/showtemplate-page.vue'
 import UserImformation from '@/views/user-imformation-page.vue'
 import ForgetPassword from '@/components/forgetpassword-page.vue'
 import UpdateUser from '@/views/user-update-page.vue'
+import MineBlog from '@/views/mineBlog.vue'
+import SupportUs from '@/views/supportUs.vue'
 
 //导入插件
 Vue.use(VueRouter)
@@ -30,17 +32,19 @@ const router = new VueRouter({
       redirect: '/workplace/userinformation',
       children: [
         { path: 'userinformation', component: UserImformation },
-        { path: 'updateuser',component: UpdateUser,name: "updateuser"}
+        { path: 'updateuser',component: UpdateUser,name: "updateuser"},
+        { path: 'mineBlog', component: MineBlog },
+        { path: 'creatBlog', component: MineBlog },
+        { path: 'supportUs', component: SupportUs }
       ] },
-    {
-      path: '/home',
+    { path: '/home',
       component: MainPage,
       redirect: '/home/hometext',
       children: [
         { path: 'hometext', component: HomeText },
         { path: 'showtemplate', component: ShowTemplate }
-      ],
-    },
+      ],},
+    
   ],
 })
 export default router

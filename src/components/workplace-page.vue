@@ -46,9 +46,9 @@
          </template>
            <el-menu-item-group>
           <template slot="title">主要功能</template>
-          <el-menu-item index="2-1" @click="null">我的博客</el-menu-item>
-          <el-menu-item index="2-2" @click="null">创建博客</el-menu-item>
-          <el-menu-item index="2-3" @click="null">赞助一下</el-menu-item>
+          <el-menu-item index="2-1" @click="mineBlog()">我的博客</el-menu-item>
+          <el-menu-item index="2-2" @click="mineBlog()">创建博客</el-menu-item>
+          <el-menu-item index="2-3" @click="supportUs()">赞助一下</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
         <el-submenu index="3">
@@ -90,6 +90,12 @@ export default {
     logoff () {
       this.$store.dispatch('updateuser', {id: '', username: ''})
       this.$router.push('/home/hometext')
+    },
+    mineBlog(){
+      this.$router.push('/workplace/mineBlog')
+    },
+    supportUs(){
+      this.$router.push('/workplace/supportUs')
     }
   }
 }
