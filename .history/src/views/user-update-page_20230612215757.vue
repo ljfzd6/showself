@@ -10,12 +10,10 @@
     <el-input type="email" v-model.number="UserForm.email"></el-input>
   </el-form-item>
     <el-form-item label="性别" >
-      <div class="radioshow">
-    <input type="radio" id="male" value="1" v-model="UserForm.sex">
-    <label for="male">男</label>
-    <input type="radio" id="female" value="0" v-model="UserForm.sex">
-    <label for="female">女</label>
-  </div>
+      <el-radio-group v-model="UserForm.sex"  style="text-align: left;">
+    <el-radio :label="0">男</el-radio>
+    <el-radio :label="1">女</el-radio>
+  </el-radio-group>
   </el-form-item>
     <el-form-item label="电话" >
     <el-input type="phone" v-model="UserForm.phone"></el-input>
@@ -35,35 +33,28 @@
 </template>
 
 <script>
- import { UpdateUserInformation } from '@/api/userApI.js'
+// import { UpdateUserInformation } from '@/api/userApI.js'
 export default {
   data () {
     return {
       UserForm: '',
       dialogVisible: false,
-      msg: '',
-      type: ''
+      msg: ''
     }
   },
   methods: {
-    // 提交修改表单，弹出提示框
-    async submitForm () {
-      const { data: res } = await UpdateUserInformation(this.UserForm)
-      if(res.code==200){
-        this.dialogVisible = true
-        this.msg = res.msg
-        this.type='sucess'
-      }else{
-        this.dialogVisible = true
-        this.msg = res.msg
-        this.type='error'
-      }
-
-    },
-    ok () {
-      if (this.type=='sucess') {
+    // // 提交修改表单，弹出提示框
+    // async submitForm () {
+    //   const { data: res } = await UpdateUserInformation(this.UserForm)
+    //   this.dialogVisible = true
+    //   this.error = res.data
+    // },
+    // 跳转至浏览信息页面，并且关闭提示框
+    confirmupdate () {
+      console.log(this.flag)
+      if (this.flag === 200) {
         this.dialogVisible = false
-        this.$router.push('/workplace/userinformation')
+        this.$router.push('/home/user')
       } else {
         this.dialogVisible = false
       }
@@ -76,29 +67,9 @@ export default {
   // 读取数据展示页面传来的值
   created () {
     this.UserForm = this.$route.params.user
-    if(this.UserForm.sex == '男')
-    {
-      this.UserForm.sex='1'
-    }else
-    {
-      this.UserForm.sex='0'
-    }
-    console.log(this.UserForm)
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .radioshow {
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    padding-right: 85%;
-  }
-  input[type="radio"] {
-    margin: 0 10px;
-  }
-  label {
-    margin: 0 5px;
-  }
 </style>

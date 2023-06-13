@@ -1,6 +1,6 @@
 import request from '@/utils/request.js'
 //登录
-export const Login = function (email, password,verifycode) {
+export const Login = function (email, password, verifycode) {
   // 请求路径
   return request.get('/user/login', {
     params: {
@@ -30,7 +30,7 @@ export const SelectUserByEmail = function (email) {
 // 获取验证码
 export const GetVerifCode = function () {
   return request.get('/user/verifycode', {
-    responseType: 'blob' 
+    responseType: 'blob'
   })
 }
 // 发送验证码
@@ -42,21 +42,21 @@ export const SendVerifEmail = function (email) {
   })
 }
 // 添加用户
-export const AddUser = function (user,code,usercode) {
+export const AddUser = function (user, code, usercode) {
   return request.post('/user/register', {
-      user: {
-        username: user.username,
-        password: user.password,
-        name: user.name,
-        phone: user.phone,
-        email: user.email,
-      },
-      code: code,
-      usercode:usercode
+    user: {
+      username: user.username,
+      password: user.password,
+      name: user.name,
+      phone: user.phone,
+      email: user.email,
+    },
+    code: code,
+    usercode: usercode
   })
 }
 // 修改密码
-export const UpdatePassword = function (id,password) {
+export const UpdatePassword = function (id, password) {
   return request.put('/user/updatepassword', {
     user: {
       id: id,
@@ -67,9 +67,9 @@ export const UpdatePassword = function (id,password) {
 }
 // 修改用户数据
 export const UpdateUserInformation = function (user) {
-   console.log('准备发送的' + user)
+  // console.log('准备发送的' + user.id + user.username + user.password + user.age + user.name + user.phone + user.address)
   return request.put('/user/updateuser', {
-    user:{
+    user: {
       id: user.id,
       username: user.username,
       name: user.name,
@@ -77,8 +77,8 @@ export const UpdateUserInformation = function (user) {
       email: user.email,
       sex: user.sex,
     },
-      operator: user.name
-    
+    operator: user.name
+
   })
 }
 

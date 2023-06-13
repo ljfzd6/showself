@@ -81,7 +81,7 @@ export default {
       this.UserForm.sex='1'
     }else
     {
-      this.UserForm.sex='0'
+      this.UserForm.sex='2'
     }
     console.log(this.UserForm)
   }

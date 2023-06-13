@@ -67,7 +67,7 @@ export const UpdatePassword = function (id,password) {
 }
 // 修改用户数据
 export const UpdateUserInformation = function (user) {
-   console.log('准备发送的' + user)
+   console.log('准备发送的' + user.id + user.username + user.password + user.age + user.name + user.phone + user.address)
   return request.put('/user/updateuser', {
     user:{
       id: user.id,

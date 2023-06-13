@@ -78,10 +78,10 @@ export default {
     this.UserForm = this.$route.params.user
     if(this.UserForm.sex == '男')
     {
-      this.UserForm.sex='1'
+      this.UserForm.sex
     }else
     {
-      this.UserForm.sex='0'
+
     }
     console.log(this.UserForm)
   }

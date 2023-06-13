@@ -170,6 +170,7 @@ export default {
         }
       }, 1000)
             // 发送验证码的逻辑
+
       const { data: res } = await SendVerifEmail(this.user.email)
         this.usercode= res.data;
       this.type = 'nothing';

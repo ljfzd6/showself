@@ -11,9 +11,9 @@
   </el-form-item>
     <el-form-item label="性别" >
       <div class="radioshow">
-    <input type="radio" id="male" value="1" v-model="UserForm.sex">
+    <input type="radio" id="male" value="男" v-model="UserForm.sex">
     <label for="male">男</label>
-    <input type="radio" id="female" value="0" v-model="UserForm.sex">
+    <input type="radio" id="female" value="女" v-model="UserForm.sex">
     <label for="female">女</label>
   </div>
   </el-form-item>
@@ -78,10 +78,10 @@ export default {
     this.UserForm = this.$route.params.user
     if(this.UserForm.sex == '男')
     {
-      this.UserForm.sex='1'
+      this.UserForm.sex
     }else
     {
-      this.UserForm.sex='0'
+
     }
     console.log(this.UserForm)
   }
