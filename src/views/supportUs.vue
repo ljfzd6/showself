@@ -13,7 +13,7 @@
 
         <!-- 修改密码弹窗 -->
         <el-dialog title="支付宝赏饭" :visible.sync="dialogFormVisible1">
-            <img  style="width: 250px; " src="../assets/AliPay_Full.jpg"   /> 
+            <img  style="width: 250px; " src="../assets/AliPay_F.jpg"   /> 
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="dialogFormVisible1= false">老板大气！</el-button>
             </div>
@@ -21,7 +21,7 @@
 
         <!-- 修改密码弹窗 -->
         <el-dialog title="微信赏饭" :visible.sync="dialogFormVisible2">
-            <img  style="width: 250px; " src="../assets/AliPay_Full.jpg"   /> 
+            <img  style="width: 250px; " src="../assets/AliPay_F.jpg"   /> 
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="dialogFormVisible2= false">老板大气！</el-button>
             </div>
