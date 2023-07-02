@@ -5,26 +5,14 @@
         <nav>
             <a @click="mainpage()">首页</a>
             <a @click="showtemplate()">选择模板</a>
-            <a @click="dialogVisible = true">赞助一下</a>
+            <a>赞助一下</a>
             <a>加入我们</a>
             <a @click="login()">{{ $store.state.id!=''?'进入'+$store.state.username+'的工作台':'登录' }}</a>
         </nav>
     </div>
     <router-view></router-view>
-    <el-dialog title="赞助一下" :visible.sync="dialogVisible" :modal-append-to-body="false">
-      <el-descriptions class="margin-top" title="----------------------------------------赞助，求求，谢谢！----------------------------------------" :column="3" :size="size" border>
-        </el-descriptions>
-        <div style="padding: 0px 0px 0px 0px;">
-          <span style="margin-left: 20px;">微信：</span>
-          <span style="margin-left: 450px;">支付宝：</span> <br>
-          <img  style="width: 250px; margin-left: 0px;" src="../assets/AliPay_F.jpg"   /> 
-          <img  style="width: 250px; margin-left: 210px;" src="../assets/AliPay_F.jpg" /> 
-        </div>
-        <h2>
-            如果您喜欢我的作品，简单的捐赠是对我最大的物质和精神支持~谢谢您!
-        </h2>
- 
-
+    <el-dialog title="赞助一下" :visible.sync="dialogFormVisible1">
+    
     </el-dialog>
     </header>
 </template>
@@ -33,9 +21,8 @@
 export default {
   data () {
     return {
-      dialogVisible: false,
-      user: '',
-      size: '',
+      dialogFormVisible1: false,
+      dialogFormVisible2: false,
     } 
   },
   computed: {

@@ -11,20 +11,33 @@
         </nav>
     </div>
     <router-view></router-view>
-    <el-dialog title="赞助一下" :visible.sync="dialogVisible" :modal-append-to-body="false">
-      <el-descriptions class="margin-top" title="----------------------------------------赞助，求求，谢谢！----------------------------------------" :column="3" :size="size" border>
+    <el-dialog title="赞助一下" :visible.sync="dialogVisible">
+      <el-descriptions class="margin-top" title="赞助，求求，谢谢！" :column="3" :size="size" border>
+            <template slot="extra">
+            <el-button type="primary" size="small" @click="dialogFormVisible1= true">支付宝打款一百万！</el-button>
+            <el-button type="primary" size="small" @click="dialogFormVisible2= true">微信赏你一毛QAQ </el-button>
+            </template>
         </el-descriptions>
-        <div style="padding: 0px 0px 0px 0px;">
-          <span style="margin-left: 20px;">微信：</span>
-          <span style="margin-left: 450px;">支付宝：</span> <br>
-          <img  style="width: 250px; margin-left: 0px;" src="../assets/AliPay_F.jpg"   /> 
-          <img  style="width: 250px; margin-left: 210px;" src="../assets/AliPay_F.jpg" /> 
-        </div>
-        <h2>
-            如果您喜欢我的作品，简单的捐赠是对我最大的物质和精神支持~谢谢您!
-        </h2>
- 
 
+        <template>
+            如果您喜欢我的作品，简单的捐赠是对我最大的物质和精神支持~谢谢您!
+        </template>
+
+        <!-- 修改密码弹窗 -->
+        <el-dialog title="支付宝赏饭" :visible.sync="dialogFormVisible1">
+            <img  style="width: 250px; " src="../assets/AliPay_F.jpg"   /> 
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="dialogFormVisible1= false">老板大气！</el-button>
+            </div>
+        </el-dialog>
+
+        <!-- 修改密码弹窗 -->
+        <el-dialog title="微信赏饭" :visible.sync="dialogFormVisible2">
+            <img  style="width: 250px; " src="../assets/AliPay_F.jpg"   /> 
+            <div slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="dialogFormVisible2= false">老板大气！</el-button>
+            </div>
+        </el-dialog>
     </el-dialog>
     </header>
 </template>
@@ -34,6 +47,8 @@ export default {
   data () {
     return {
       dialogVisible: false,
+      dialogFormVisible1: false,
+      dialogFormVisible2: false,
       user: '',
       size: '',
     } 

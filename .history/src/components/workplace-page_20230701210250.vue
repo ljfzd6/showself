@@ -92,8 +92,7 @@ export default {
     },
     mineBlog(){
       this.$router.push('/workplace/mineBlog')
-    },
-
+    }
   }
 }
 </script>
